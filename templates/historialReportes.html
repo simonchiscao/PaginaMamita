@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>DEMO FORMS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <style>
+        body{
+            background: linear-gradient(
+                to right,
+                rgb(16, 116, 116),
+                rgb(97, 94, 94),
+                black
+            );
+        }
+        .text{
+            font-size: 50px;
+            margin-right: 320px;
+            color: white;
+        }
+        .navbar{
+            background: linear-gradient(
+                to right,
+                rgb(16, 116, 116),
+                rgb(97, 94, 94),
+                black
+            );
+            border-radius: 1px 30px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body class="container mt-5">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{%static 'imagenes/LogoGamer.png'%}" alt="Logo" width="100" height="100"
+                    class="d-inline-block align-text-top">
+            </a>
+            <div class="text">
+                Historial de reportes
+            </div>
+        </div>
+    </nav>
+    {% if preguntas %}
+    <table class="table table-striped table-inverse table-responsive">
+        <thead class="thead-inverse">
+            <tr>
+                <th>ID</th>
+                <th>RESPUESTA</th>
+                <th>-</th>
+                <th>-</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in preguntas %}
+            <tr>
+                <td>{{proyecto.id}}</td>
+                <td>{{proyecto.respuestaOne}}</td>
+                <td><a href="/actualizarReporte/{{ proyecto.id }}" class="btn btn-success btn-sm"><i
+                            class="bi bi-pencil">Actualizar</i></td>
+                <td><a href="/eliminarReporte/{{ proyecto.id }}" class="btn btn-danger btn-sm"><i
+                            class="bi bi-trash-fill">Eliminar</i></td>
+            </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+
+    <div class="alert alert-warning text-center" role="alert">
+        <strong>No se encuentra proyecto en el sistema</strong>
+    </div>
+
+    {% endif %}
+
+    <a href="../" class="btn btn-danger">PAGINA PRINCIPAL</a>
+    <a href="../agregarReporte" class="btn btn-info float-end">AGREGAR REPORTE</a>
+    <Script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></Script>
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title":"Felicitaciones",
+                    "text":"{{m}}",
+                    "icon":"success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+</body>
+
+</html>
